@@ -1,13 +1,156 @@
-body {
+*,
+*::before,
+*::after {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --card-height: 300px;
+  --card-width: calc(var(--card-height) / 1.5);
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(105, 155, 200);
+  background: -moz-radial-gradient(
+    top left,
+    ellipse cover,
+    rgba(105, 155, 200, 1) 0%,
+    rgba(181, 197, 216, 1) 57%
+  );
+  background: -webkit-gradient(
+    radial,
+    top left,
+    0px,
+    top left,
+    100%,
+    color-stop(0%, rgba(105, 155, 200, 1)),
+    color-stop(57%, rgba(181, 197, 216, 1))
+  );
+  background: -webkit-radial-gradient(
+    top left,
+    ellipse cover,
+    rgba(105, 155, 200, 1) 0%,
+    rgba(181, 197, 216, 1) 57%
+  );
+  background: -o-radial-gradient(
+    top left,
+    ellipse cover,
+    rgba(105, 155, 200, 1) 0%,
+    rgba(181, 197, 216, 1) 57%
+  );
+  background: -ms-radial-gradient(
+    top left,
+    ellipse cover,
+    rgba(105, 155, 200, 1) 0%,
+    rgba(181, 197, 216, 1) 57%
+  );
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(105, 155, 200, 1) 0%,
+    rgba(181, 197, 216, 1) 57%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#699bc8', endColorstr='#b5c5d8',GradientType=1 );
+}
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(./images/snow-png.png);
+  opacity: 0.4;
+}
+.cards {
+  display: flex;
+  gap: 30px;
+}
+.card {
+  position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 36px;
+  perspective: 2500px;
+  border-radius: 10px;
+}
+.wrapper {
+  transition: all 0.5s;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.card:hover .wrapper {
+  transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+  box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+}
+.wrapper::before,
+.wrapper::after {
+  content: "";
+  opacity: 0;
+  width: 100%;
+  height: 80px;
+  transition: all 0.5s;
+  position: absolute;
+  left: 0;
+  border-radius: 10px;
+}
+.wrapper::before {
+  top: 0;
+  height: 80%;
+  background-image: linear-gradient(
+    to top,
+    transparent 46%,
+    rgba(12, 13, 19, 0.5) 68%,
+    rgba(12, 13, 19) 97%
+  );
+}
+.wrapper::after {
+  bottom: 0;
+  opacity: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(170, 170, 175, 0.5) 68%,
+    rgb(227, 227, 228) 97%
+  );
+}
+.card:hover .wrapper::before,
+.wrapper::after {
+  opacity: 1;
+}
+.card:hover .wrapper::after {
+  height: 120px;
+}
+.title {
+  width: 100%;
+  transform: translate3d(0%, -25px, 100px);
+  transition: transform 0.5s;
+}
+.card:hover .title {
+  transform: translate3d(0%, -50px, 100px);
+}
+.character {
+  width: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  position: absolute;
+  z-index: -1;
+}
+.card:hover .character {
+  opacity: 1;
+  transform: translate3d(0%, -30%, 100px);
 }
